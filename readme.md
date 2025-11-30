@@ -1,16 +1,60 @@
-# RPG
+# RPG GUI
 
-## Choix de design du projet Mini RPG Textuel
+Un jeu de rôle (RPG) simple avec une interface graphique (GUI) développé en Java Swing.
 
-Le projet a été conçu en **programmation orientée objet** pour assurer une structure claire et évolutive.
-La classe **`Game`** centralise la logique principale (déplacements, combats, magasin) tandis que la classe **`Carte`** gère la carte du donjon sous forme de grille 2D contenant les entités.
+## Description
 
-Les entités du jeu (joueur, monstres, obstacles) héritent de la classe **`GameEntity`**, qui regroupe les attributs communs comme le nom, la position et la santé. Les classes **`Player`** et **`Monster`** implémentent l’interface **`Attaquable`**, permettant un système de combat générique et polymorphe.
+Ce projet est une évolution d'un RPG textuel vers une version graphique. Le joueur peut se déplacer sur une carte, combattre des monstres, gérer son inventaire et acheter des armes dans un magasin.
 
-L’inventaire du joueur est géré par la classe **`Inventory`**, qui contient les armes et l’argent, tandis que **`WeaponStore`** permet d’acheter de nouveaux équipements.
-La classe **`Position`** simplifie les déplacements sur la carte et les interactions entre entités.
+## Fonctionnalités
 
-Ce design repose sur les principes d’**encapsulation**, d’**héritage** et de **polymorphisme**, facilitant la maintenance et l’ajout de nouvelles fonctionnalités (nouvelles classes, armes, ou monstres) sans modifier la structure existante.
+*   **Interface Graphique** : Utilisation de Java Swing pour l'affichage de la carte et des contrôles.
+*   **Déplacement** : Le joueur peut se déplacer dans les 4 directions (Z, Q, S, D).
+*   **Combat** : Système de combat au tour par tour contre des monstres.
+*   **Inventaire** : Gestion des armes et de l'argent.
+*   **Magasin** : Possibilité d'acheter de nouvelles armes.
+*   **Système de Dessin** : Utilisation de l'interface `Drawable` et de la méthode `paint` pour un rendu graphique modulaire.
 
-## UML Diagram
-![RPG UML](./assets/RPG-UML.png)
+## Architecture et Design
+
+Le projet suit les principes de la programmation orientée objet :
+
+*   **`GameGUI`** : Gère la fenêtre principale, les entrées utilisateur et la boucle de jeu.
+*   **`Carte`** : Représente la grille de jeu. Elle implémente `Drawable` et gère l'affichage de toutes les entités qu'elle contient via sa méthode `paint`.
+*   **`GameEntity`** : Classe abstraite pour toutes les entités (Joueur, Monstres, Obstacles).
+*   **`Drawable`** : Interface définissant la capacité d'un objet à être dessiné (`draw` pour le symbole, `getColor` pour la couleur, et `paint` pour le rendu Swing).
+*   **`Player` / `Monster`** : Héritent de `GameEntity` et implémentent la logique spécifique (XP, attaque, etc.).
+
+## Installation et Lancement
+
+### Prérequis
+
+*   Java JDK installé (version 8 ou supérieure).
+
+### Compilation
+
+Un script de build est fourni (si disponible) ou vous pouvez compiler manuellement :
+
+```bash
+mkdir -p out
+javac -d out -cp src src/Main.java
+```
+
+### Exécution
+
+Pour lancer le jeu :
+
+```bash
+java -cp out Main
+```
+
+## Contrôles
+
+*   **Z / S / Q / D** : Déplacement (Haut, Bas, Gauche, Droite)
+*   **A / Espace** : Attaquer
+*   **I** : Ouvrir l'inventaire
+*   **B** : Ouvrir la boutique (si sur la case du magasin)
+
+## Auteurs
+
+Projet réalisé dans le cadre du cours de Java (L3).

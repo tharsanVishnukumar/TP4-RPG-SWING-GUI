@@ -5,6 +5,7 @@ import Entity.MapElement;
 import Utils.GameConfig;
 import Utils.Position;
 import java.awt.Color;
+import java.awt.Graphics;
 
 import java.util.ArrayList;
 
@@ -81,5 +82,30 @@ public class Carte<T extends MapElement> implements Drawable {
   @Override
   public Color getColor() {
     return Color.WHITE;
+  }
+
+  @Override
+  public void paint(Graphics g, int x, int y, int width, int height) {
+    int cellWidth = width / this.width;
+    int cellHeight = height / this.height;
+
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        int px = x + j * cellWidth;
+        int py = y + i * cellHeight;
+
+        // Draw background
+        g.setColor(Color.WHITE);
+        g.fillRect(px, py, cellWidth, cellHeight);
+        g.setColor(Color.LIGHT_GRAY);
+        g.drawRect(px, py, cellWidth, cellHeight);
+
+        // Draw entity
+        T entity = getEntityAt(j, i);
+        if (entity != null) {
+          entity.paint(g, px, py, cellWidth, cellHeight);
+        }
+      }
+    }
   }
 }

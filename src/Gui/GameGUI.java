@@ -364,39 +364,7 @@ public class GameGUI extends JFrame {
     @Override
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
-      int w = getWidth();
-      int h = getHeight();
-      int rows = GameConfig.CARTE_HEIGHT;
-      int cols = GameConfig.CARTE_WIDTH;
-      int cellWidth = w / cols;
-      int cellHeight = h / rows;
-
-      for (int y = 0; y < rows; y++) {
-        for (int x = 0; x < cols; x++) {
-          int px = x * cellWidth;
-          int py = y * cellHeight;
-
-          // Draw background
-          g.setColor(Color.WHITE);
-          g.fillRect(px, py, cellWidth, cellHeight);
-          g.setColor(Color.LIGHT_GRAY);
-          g.drawRect(px, py, cellWidth, cellHeight);
-
-          // Draw entity
-          MapElement entity = map.getEntityAt(x, y);
-          if (entity != null) {
-            g.setColor(entity.getColor());
-            g.fillRect(px + 5, py + 5, cellWidth - 10, cellHeight - 10);
-
-            // Draw name or symbol
-            g.setColor(Color.WHITE);
-            String symbol = entity.draw(); // Assuming draw() returns a short string/char
-            if (symbol.length() > 1)
-              symbol = symbol.substring(0, 1);
-            g.drawString(symbol, px + cellWidth / 2 - 3, py + cellHeight / 2 + 3);
-          }
-        }
-      }
+      map.paint(g, 0, 0, getWidth(), getHeight());
     }
   }
 }
