@@ -180,8 +180,23 @@ public class GameGUI extends JFrame {
   }
 
   private Player createPlayer() {
+    String name = JOptionPane.showInputDialog(null, "Entrez votre nom:", "Création du personnage", JOptionPane.QUESTION_MESSAGE);
+    if (name == null || name.trim().isEmpty()) {
+      name = "Hero";
+    }
+
+    String[] classes = {"Sorcier", "Elfe"};
+    int classChoice = JOptionPane.showOptionDialog(null, "Choisissez votre classe:", "Création du personnage",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, classes[0]);
+
     Position playerPosition = new Position(0, 0);
-    Player p = new Sorcier("Hero", playerPosition);
+    Player p;
+    if (classChoice == 1) {
+      p = new Elfe(name, playerPosition);
+    } else {
+      p = new Sorcier(name, playerPosition);
+    }
+
     // give starter weapon and some money
     Inventery inv = p.getInventery();
     inv.addWeapon(new Sword("Epée courte", 15, 10));
